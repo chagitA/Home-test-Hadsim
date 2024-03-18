@@ -1,22 +1,10 @@
-def main():
-    # Menu display:
-    print("Please select the tower type:")
-    print("1. A rectangular tower")
-    print("2. A triangular tower")
-    print("To log out, please press 3")
+def RectangularTower():
+    height = int(input("Enter tower height:"))
+    width = int(input("Enter tower width:"))
 
-    # Choosing a type of tower:
-    while True:
-        try:
-            selection = int(input())
+    # Calculation of area or perimeter:
+    if abs(height - width) > 5 or height == width:
+        print("The area of the tower is: ", height * width, " square meter.")
+    else:
+        print("The perimeter of the tower is: ", 2 * (height + width), " meter.")
 
-            # Checking the integrity of the input:
-            if 0 < selection < 4:
-                break
-            print("The value you entered is invalid. Please enter a number between 1 and 3")
-        except ValueError:
-            print("The value you entered is invalid. Please enter a number between 1 and 3")
-
-
-if __name__ == "__main__":
-    main()
