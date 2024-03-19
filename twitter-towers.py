@@ -9,6 +9,43 @@ def RectangularTower():
         print("The perimeter of the tower is: ", 2 * (height + width), " meter.")
 
 
+def PrintTriangle(height, width):
+    middle_groups = (width - 2) // 2
+    rows_in_group = (height - 2) // middle_groups
+    rest_of_rows = height - 2 - (middle_groups * rows_in_group)
+    star_temp = 0
+    space_temp = 0
+
+    #Print the first line:
+    for i in range(width // 2):
+        print(" ", end="")
+    print("*")
+    star_temp += 1
+    space_temp += 1
+
+    #Printing the middle rows:
+    for i in range(rows_in_group + rest_of_rows):
+        for j in range(width // 2 - 1):
+            print(" ", end="")
+        for j in range(star_temp + 2):
+            print("*", end="")
+        print()
+    space_temp += 1
+    star_temp += 2
+
+    for i in range(middle_groups - 1):
+        for x in range(rows_in_group):
+            for j in range(width // 2 - space_temp - i):
+                print(" ", end="")
+            for j in range(i * 2 + 5):
+                print("*", end="")
+            print()
+
+    #Print the last line:
+    for i in range(width):
+        print("*", end="")
+
+
 def TriangularTower():
     height = int(input("Enter tower height:"))
     width = int(input("Enter tower width:"))
@@ -42,7 +79,6 @@ def TriangularTower():
             return
 
         else:
-            def PrintTriangle():
-                print("this function will be activated soon.")
+            PrintTriangle(height, width)
 
-            PrintTriangle()
+
