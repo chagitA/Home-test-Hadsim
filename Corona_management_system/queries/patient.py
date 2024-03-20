@@ -8,6 +8,7 @@ session = ConnectSQL.session
 
 
 class Patient_queries:
+    # A function that sends the newly created patient to the database:
     def new_patient(self, n_id, n_first_name, n_last_name,
                     n_city, n_street, n_house_num,
                     n_birthday, n_phone, n_cellphone,
@@ -20,13 +21,10 @@ class Patient_queries:
         session.add(new_patient)
         session.commit()
 
+    # A function that sends a patient according to an ID:
     def get_patient(self, patient_id):
-        if type(patient_id) == str:
-            stmt = select(Patient).where((Patient.firstname + " " + Patient.lastname) == patient_id)
-        else:
-            stmt = select(Patient).where(Patient.id == patient_id)
+        stmt = select(Patient).where(Patient.id == patient_id)
         result = session.execute(stmt)
-
         for p in result.scalar():
             return p
 
