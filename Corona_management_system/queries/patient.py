@@ -14,9 +14,9 @@ class Patient_queries:
                     n_birthday, n_phone, n_cellphone,
                     n_positive_result_date, n_recovery_date):
 
-        new_patient = Patient(id=n_id, first_name=n_first_name, last_nam=n_last_name,
-                              city=n_city,street=n_street, house_num=n_house_num,
-                              birthday=n_birthday, phone=n_phone, cellphon=n_cellphone,
+        new_patient = Patient(id=n_id, firstname=n_first_name, lastname=n_last_name,
+                              city=n_city, street=n_street, house_num=n_house_num,
+                              birthdate=n_birthday, phone=n_phone, cellphone=n_cellphone,
                               positive_result_date=n_positive_result_date, recovery_date=n_recovery_date)
         session.add(new_patient)
         session.commit()
