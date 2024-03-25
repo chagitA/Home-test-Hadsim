@@ -3,6 +3,8 @@ from queries.patient import Patient_queries
 from queries.vaccination import Vaccination_queries
 from sqlalchemy import create_engine
 from flask_cors import CORS
+import validation
+
 
 # creating the app:
 app = Flask(__name__)
@@ -26,15 +28,16 @@ def new_patient():
     birthday = data.get('birthday')
     phone = data.get('phone')
     cellphone = data.get('cellphone')
-    positive_result_date = data.get('positive_result_date')
-    recovery_date = data.get('recovery_date')
 
     try:
-        patient.new_patient(patient_id, first_name, last_name,
-                            city, street, house_num,
-                            birthday, phone, cellphone,
-                            positive_result_date, recovery_date)
-        response = {'success': True, 'message': 'Patient created successfully'}
+        # Checking the correctness of the ID number:
+        if not validation.israeli_id_validation(patient_id):
+            response = {'success': False, 'message': 'ID number is wrong'}
+        else:
+            patient.new_patient(patient_id, first_name, last_name,
+                                city, street, house_num,
+                                birthday, phone, cellphone)
+            response = {'success': True, 'message': 'Patient created successfully'}
     except Exception as e:
         response = {'success': False, 'message': str(e)}
 
