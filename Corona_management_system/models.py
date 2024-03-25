@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, LargeBinary
 from sqlalchemy.orm import Mapped, mapped_column, relationship, declarative_base
 from connect_to_sqlserver import ConnectSQL
 
@@ -19,6 +19,7 @@ class Patient(Base):
     cellphone: Mapped[str] = mapped_column(String(10))
     positive_result_date: Mapped[Date] = mapped_column(Date, nullable=True, default=None)
     recovery_date: Mapped[Date] = mapped_column(Date, nullable=True, default=None)
+    image: Mapped[bytes] = mapped_column(LargeBinary)
 
     vaccinations: Mapped["Vaccination"] = relationship(back_populates="patient")
 
