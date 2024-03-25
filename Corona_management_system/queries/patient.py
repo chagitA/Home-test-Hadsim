@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from Corona_management_system.connect_to_sqlserver import ConnectSQL
 from Corona_management_system.models import Patient
@@ -13,7 +13,6 @@ class Patient_queries:
                     n_city, n_street, n_house_num,
                     n_birthday, n_phone, n_cellphone,
                     n_positive_result_date, n_recovery_date):
-
         new_patient = Patient(id=n_id, firstname=n_first_name, lastname=n_last_name,
                               city=n_city, street=n_street, house_num=n_house_num,
                               birthdate=n_birthday, phone=n_phone, cellphone=n_cellphone,
@@ -28,3 +27,16 @@ class Patient_queries:
         for p in result.scalar():
             return p
 
+    # A function that updates the date of receiving a positive result for Corona:
+    def update_positive_result_date(self, patient_id, date):
+
+        patient = session.query(Patient).filter(Patient.id == patient_id).one_or_none()
+
+        if patient is not None:
+            # Update the positive result date
+            patient.positive_result_date = date
+            # Commit the changes to the database
+            session.commit()
+            return "Positive result date updated successfully"
+        else:
+            return "Patient not found"
