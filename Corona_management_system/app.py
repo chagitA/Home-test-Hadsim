@@ -100,7 +100,21 @@ def update_positive_date():
     date = data.get('date')
     try:
         patient.update_positive_result_date(patient_id, date)
-        response = {'success': True, 'message': 'Vaccination created successfully'}
+        response = {'success': True, 'message': 'The date of receiving a positive result has been successfully updated'}
+    except Exception as e:
+        response = {'success': False, 'message': str(e)}
+    return jsonify(response), 200
+
+
+# Routing to update the date of recovery from Corona:
+@app.route('/api/update-recovery-date', methods=['UPDATE'])
+def update_recovery_date():
+    data = request.get_json()
+    patient_id = data.get('patient_id')
+    date = data.get('date')
+    try:
+        patient.update_recovery_date(patient_id, date)
+        response = {'success': True, 'message': 'Recovery date has been successfully updated'}
     except Exception as e:
         response = {'success': False, 'message': str(e)}
     return jsonify(response), 200
