@@ -17,8 +17,8 @@ class Patient(Base):
     birthdate: Mapped[Date] = mapped_column(Date)
     phone: Mapped[str] = mapped_column(String(10))
     cellphone: Mapped[str] = mapped_column(String(10))
-    positive_result_date: Mapped[Date] = mapped_column(Date)
-    recovery_date: Mapped[Date] = mapped_column(Date)
+    positive_result_date: Mapped[Date] = mapped_column(Date, nullable=True, default=None)
+    recovery_date: Mapped[Date] = mapped_column(Date, nullable=True, default=None)
 
     vaccinations: Mapped["Vaccination"] = relationship(back_populates="patient")
 
