@@ -29,7 +29,6 @@ class Patient_queries:
 
     # A function that updates the date of receiving a positive result for Corona:
     def update_positive_result_date(self, patient_id, date):
-
         patient = session.query(Patient).filter(Patient.id == patient_id).one_or_none()
 
         if patient is not None:
@@ -37,6 +36,13 @@ class Patient_queries:
             patient.positive_result_date = date
             # Commit the changes to the database
             session.commit()
-            return "Positive result date updated successfully"
-        else:
-            return "Patient not found"
+
+    # A function that updates the date of recovery from Corona:
+    def update_recovery_date(self, patient_id, date):
+        patient = session.query(Patient).filter(Patient.id == patient_id).one_or_none()
+
+        if patient is not None:
+            # Update the recovery result date
+            patient.recovery_date = date
+            # Commit the changes to the database
+            session.commit()
