@@ -14,7 +14,7 @@ vaccine = Vaccination_queries()
 
 
 # Routing to create a new patient:
-@app.route('/api/patients', methods=['POST'])
+@app.route('/api/new-patient', methods=['POST'])
 def new_patient():
     data = request.get_json()
     patient_id = data.get('patient_id')
@@ -42,7 +42,7 @@ def new_patient():
 
 
 # Routing to get the patient by ID:
-@app.route('/api/patients', methods=['GET'])
+@app.route('/api/get-patients', methods=['GET'])
 def get_patient(patient_id):
     try:
         patient_data = patient.get_patient(patient_id)
@@ -57,7 +57,7 @@ def get_patient(patient_id):
 
 
 # Routing to create a new vaccine:
-@app.route('/api/vaccine', methods=['POST'])
+@app.route('/api/new-vaccine', methods=['POST'])
 def new_vaccine():
     data = request.get_json()
     vaccine_id = data.get('vaccine_id')
@@ -66,7 +66,7 @@ def new_vaccine():
     manufacturer = data.get('manufacturer')
 
     try:
-        vaccine.new_vaccine(vaccine_id, patient_id, date, manufacturer)
+        vaccine.new_vaccine(patient_id, date, manufacturer)
         response = {'success': True, 'message': 'Vaccination created successfully'}
     except Exception as e:
         response = {'success': False, 'message': str(e)}
@@ -75,8 +75,11 @@ def new_vaccine():
 
 
 # Routing to get the vaccine by ID:
-@app.route('/api/vaccine', methods=['GET'])
-def get_vaccine(vaccine_id, type_id):
+@app.route('/api/get-vaccine', methods=['GET'])
+def get_vaccine():
+    data = request.get_json()
+    vaccine_id = data.get('vaccine_id')
+    type_id = data.get('type_id')
     try:
         vaccine_data = vaccine.get_vaccine(vaccine_id, type_id)
         if vaccine_data:
@@ -88,3 +91,16 @@ def get_vaccine(vaccine_id, type_id):
 
     return jsonify(response), 200
 
+
+# Routing to update the date of receiving a positive result for Corona:
+@app.route('/api/update-positive-date', methods=['UPDATE'])
+def update_positive_date():
+    data = request.get_json()
+    patient_id = data.get('patient_id')
+    date = data.get('date')
+    try:
+        patient.update_positive_result_date(patient_id, date)
+        response = {'success': True, 'message': 'Vaccination created successfully'}
+    except Exception as e:
+        response = {'success': False, 'message': str(e)}
+    return jsonify(response), 200
