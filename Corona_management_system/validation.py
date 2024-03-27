@@ -25,3 +25,28 @@ def validation_recovery_date(ill_date, reco_date):
         return True
     else:
         return False
+
+
+# A function that verifies a phone number:
+def verify_phone_number(phone_number):
+    # Check if the string contains only digits
+    if not phone_number.isdigit():
+        return False
+
+    # Check if the length of the number is 9 or 10 digits and starts with 0
+    if len(phone_number) == 9 or len(phone_number) == 10:
+        if phone_number[0] == '0':
+            return True
+
+    return False
+
+
+# A function that verifies a cellphone number:
+def verify_cellphone_number(phone_number):
+    # Check if the string contains only digits and has length 10
+    if phone_number.isdigit() and len(phone_number) == 10:
+        # Check if the number starts with "05"
+        if phone_number.startswith("05"):
+            return True
+
+    return False
