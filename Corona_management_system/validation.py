@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 # Function for checking a valid Israeli ID number:
 def israeli_id_validation(id_number):
     # Ensure the ID number is composed of exactly nine digits
@@ -11,3 +14,14 @@ def israeli_id_validation(id_number):
     return sum_ % 10 == 0
 
 
+# Function to verify correct date for recovery:
+def validation_recovery_date(ill_date, reco_date):
+    # Convert string dates to datetime objects
+    ill_date = datetime.strptime(ill_date, "%Y-%m-%d")
+    reco_date = datetime.strptime(reco_date, "%Y-%m-%d")
+
+    # Check if recovery date is after illness date and not on the same day
+    if reco_date > ill_date and reco_date.date() != ill_date.date():
+        return True
+    else:
+        return False
