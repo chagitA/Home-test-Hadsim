@@ -9,6 +9,15 @@ def RectangularTower():
         print("The perimeter of the tower is: ", 2 * (height + width), " meter.")
 
 
+def EdgeCasesPrint(height, width):
+    if width == 1:
+        for i in range(height):
+            print("*")
+    else:
+        print(" *")
+        for i in range(height - 1):
+            print("***")
+
 def PrintTriangle(height, width):
     middle_groups = (width - 2) // 2
     rows_in_group = (height - 2) // middle_groups
@@ -78,6 +87,10 @@ def TriangularTower():
         if width % 2 == 0 or width >= 2 * height:
             print("We are sorry, the triangle cannot be printed.")
             return
+
+        # Checking edge cases:
+        elif width <= 3:
+            EdgeCasesPrint(height, width)
 
         else:
             PrintTriangle(height, width)
