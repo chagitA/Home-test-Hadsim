@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, func
 
 from Corona_management_system.connect_to_sqlserver import ConnectSQL
 from Corona_management_system.models import Vaccination
@@ -29,3 +29,10 @@ class Vaccination_queries:
             result = session.execute(stmt)
             for v in result.scalar():
                 return v
+
+    # A function that checks whether the patient has the maximum possible vaccinations:
+    def has_max_vaccines(self, patient_id):
+        # Retrieving the number of vaccinations for the client:
+        num_vaccinations = (session.query(func.count(Vaccination.vaccine_id))
+                            .filter_by(patient_id=patient_id).scalar())
+        return num_vaccinations >= 4
