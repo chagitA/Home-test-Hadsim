@@ -1,7 +1,7 @@
-from sqlalchemy import select, update
+from sqlalchemy import select
 
-from Corona_management_system.connect_to_sqlserver import ConnectSQL
-from Corona_management_system.models import Patient
+from Corona_management_system.backend.connect_to_sqlserver import ConnectSQL
+from Corona_management_system.backend.models import Patient, Image
 
 Base = ConnectSQL.Base
 session = ConnectSQL.session
@@ -18,12 +18,40 @@ class Patient_queries:
         session.add(new_patient)
         session.commit()
 
+    # A function that sends the newly created image to the database:
+    def new_picture(self, p_id, n_data, n_image_name, n_file_type):
+        try:
+            new_image = Image(patient_id=p_id, data=n_data, image_name=n_image_name, file_type=n_file_type)
+            session.add(new_image)
+            session.commit()
+        except Exception as e:
+            print(e)
+
     # A function that sends a patient according to an ID:
     def get_patient(self, patient_id):
         stmt = select(Patient).where(Patient.id == patient_id)
         result = session.execute(stmt)
-        for p in result.scalar():
-            return p
+        # for p in result.scalar():
+        #     return p
+        patient = result.scalar()
+        patient_data = {
+            'id': patient.id,
+            'firstname': patient.firstname,
+            'lastname': patient.lastname,
+            # Add other attributes as needed
+        }
+        return patient_data
+
+    def get_image(self, patient_id):
+        try:
+            # Query the Image table for the image associated with the given patient_id
+            image_query = select(Image).filter(Image.patient_id == patient_id)
+            result = session.execute(image_query).scalar_one()
+
+            # Return the image data
+            return result.data
+        except Exception as e:
+            print(e)
 
     # A function that updates the date of receiving a positive result for Corona:
     def update_positive_result_date(self, patient_id, date):

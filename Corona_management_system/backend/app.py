@@ -1,10 +1,8 @@
-from flask import Flask, request, jsonify, send_file
-from queries.patient import Patient_queries
-from queries.vaccination import Vaccination_queries
-from sqlalchemy import create_engine
+from flask import Flask, request, jsonify
+from Corona_management_system.backend.queries.patient import Patient_queries
+from Corona_management_system.backend.queries.vaccination import Vaccination_queries
 from flask_cors import CORS
 import validation
-import base64
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os

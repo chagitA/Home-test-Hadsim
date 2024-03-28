@@ -1,8 +1,8 @@
 from sqlalchemy import select, func
 
-from Corona_management_system.connect_to_sqlserver import ConnectSQL
-from Corona_management_system.models import Vaccination
-from Corona_management_system.queries.patient import Patient_queries
+from Corona_management_system.backend.connect_to_sqlserver import ConnectSQL
+from Corona_management_system.backend.models import Vaccination
+from Corona_management_system.backend.queries.patient import Patient_queries
 Base = ConnectSQL.Base
 session = ConnectSQL.session
 

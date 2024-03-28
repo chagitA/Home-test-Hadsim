@@ -1,5 +1,5 @@
-from Corona_management_system.connect_to_sqlserver import ConnectSQL
-from Corona_management_system.models import Patient, Image, Vaccination
+from Corona_management_system.backend.connect_to_sqlserver import ConnectSQL
+from Corona_management_system.backend.models import Patient
 from datetime import datetime, timedelta
 
 Base = ConnectSQL.Base

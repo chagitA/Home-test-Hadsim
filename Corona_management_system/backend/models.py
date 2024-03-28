@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, LargeBinary
-from sqlalchemy.orm import Mapped, mapped_column, relationship, declarative_base
-from connect_to_sqlserver import ConnectSQL
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from Corona_management_system.backend.connect_to_sqlserver import ConnectSQL
 
 Base = ConnectSQL.Base
 
