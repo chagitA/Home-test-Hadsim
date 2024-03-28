@@ -44,3 +44,11 @@ class Patient_queries:
             patient.recovery_date = date
             # Commit the changes to the database
             session.commit()
+
+    def update_num_vaccines(self, patient_id):
+        patient = session.query(Patient).filter(Patient.id == patient_id).one_or_none()
+        num_of_vaccine = session.query(Patient.num_of_vaccines).filter(Patient.id == patient_id).one_or_none()
+        if num_of_vaccine <= 4:
+            patient.num_of_vaccines += 1
+            session.commit()
+
