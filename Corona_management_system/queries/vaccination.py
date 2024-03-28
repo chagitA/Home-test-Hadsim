@@ -2,11 +2,11 @@ from sqlalchemy import select, func
 
 from Corona_management_system.connect_to_sqlserver import ConnectSQL
 from Corona_management_system.models import Vaccination
-import patient
+from Corona_management_system.queries.patient import Patient_queries
 Base = ConnectSQL.Base
 session = ConnectSQL.session
 
-patient = patient.Patient_queries()
+patient = Patient_queries()
 class Vaccination_queries:
     # A function that sends the newly created vaccine to the database:
     def new_vaccine(self, n_patient_id, n_date, n_manufacturer):
