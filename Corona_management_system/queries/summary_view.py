@@ -32,3 +32,12 @@ def active_patients_last_month():
         current_date += timedelta(days=1)
 
     return active_patients_count
+
+
+def get_non_vaccinated_patients_count():
+    # Query patients who are positive for COVID-19 and not vaccinated
+    non_vaccinated_positive_patients = session.query(Patient).filter(
+        Patient.num_of_vaccines == 0
+    ).count()
+
+    return non_vaccinated_positive_patients
